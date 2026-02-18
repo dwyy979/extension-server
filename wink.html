@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 120-240 FPS Wink</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #0a1628 0%, #0d1b2a 20%, #112233 40%, #0d1b2a 60%, #0a1628 80%, #050a12 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            max-width: 1400px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #0d1b2a, #1a2332);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(16, 185, 129, 0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(16, 185, 129, 0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(16, 185, 129, 0.9), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(16, 185, 129, 0.7), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(16, 185, 129, 0.8), transparent);
+            background-repeat: repeat;
+            background-size: 350px 120px;
+            animation: starField 12s linear infinite;
+        }
+
+        @keyframes starField {
+            0% { transform: translateX(-350px) translateY(-120px); }
+            100% { transform: translateX(0px) translateY(0px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #10b981;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: #a0b9c8;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(20, 35, 50, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: rgba(25, 40, 55, 0.9);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 1080/1400;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.45s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(10) { animation-delay: 0.55s; }
+        .gallery-item:nth-child(11) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(12) { animation-delay: 0.65s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gallery-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+        .gallery-item img[src=""],
+        .gallery-item img:not([src]),
+        .gallery-item img[src*=".png"]:not([src^="http"]):not([src^="data:"]) {
+            background: linear-gradient(135deg, #1a2332 0%, #2a3342 100%);
+            position: relative;
+        }
+
+        .gallery-item img[src=""]::after,
+        .gallery-item img:not([src])::after {
+            content: 'Image ' attr(alt);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+            font-size: 1.2em;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-number {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px 8px 20px;
+            border-radius: 0 50px 50px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            z-index: 2;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+            white-space: nowrap;
+        }
+
+        .gallery-item:hover .item-number {
+            transform: scale(1.1);
+        }
+
+        .gallery-item.closing .item-number {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.5);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #10b981;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .close:hover {
+            color: #059669;
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .close {
+                font-size: 35px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Tutorial 120-240 FPS Wink</h1>
+    </div>
+
+    <div class="container">
+        <div class="gallery">
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 1</div>
+                <img src="assets/1.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 2</div>
+                <img src="assets/2.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 3</div>
+                <img src="assets/3.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 4</div>
+                <img src="assets/4.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 5</div>
+                <img src="assets/5.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 6</div>
+                <img src="assets/6.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 7</div>
+                <img src="assets/7.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+            
+            <div class="gallery-item" onclick="openModal(this)">
+                <div class="item-number">STEP 8</div>
+                <img src="assets/8.png" onerror="this.style.background='linear-gradient(135deg, #1a2332, #2a3342)';">
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg">
+        </div>
+    </div>
+
+    <script>
+        function openModal(element) {
+            const modal = document.getElementById('myModal');
+            const modalImg = document.getElementById('modalImg');
+            const img = element.querySelector('img');
+            
+            if (img) {
+                element.classList.add('closing');
+                
+                setTimeout(() => {
+                    modal.style.display = 'block';
+                    modalImg.src = img.src;
+                }, 200);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+            
+            const closingItems = document.querySelectorAll('.gallery-item.closing');
+            closingItems.forEach(item => {
+                item.classList.remove('closing');
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(5px)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <title>Senzeyn X Tiktok</title>
+  <style>
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    html {
+      color-scheme: light only;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      * {
+        color-scheme: light only;
+      }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0e27;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.1) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, -30px); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 24px rgba(16, 185, 129, 0.5);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 5px rgba(16, 185, 129, 0.5),
+                    0 0 10px rgba(16, 185, 129, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.7),
+                    0 0 20px rgba(16, 185, 129, 0.5),
+                    0 0 30px rgba(16, 185, 129, 0.3);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -300% center;
+      }
+      100% {
+        background-position: 700% center;
+      }
+    }
+
+    .container {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(20px);
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(255, 255, 255, 0.05);
+      width: 100%;
+      max-width: 680px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 2em;
+      font-weight: 700;
+      background: linear-gradient(110deg, 
+        #10b981 0%,
+        #10b981 47%,
+        #10b981 48.5%,
+        #ffffff 50%,
+        #10b981 51.5%,
+        #10b981 53%,
+        #10b981 100%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 80s linear infinite, fadeInUp 0.8s ease-out 0.1s backwards;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.95em;
+      margin-bottom: 32px;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .instruction-toggle-wrapper {
+      margin: 0 0 24px 0;
+      animation: fadeInUp 0.8s ease-out 0.25s backwards;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .instruction-toggle-wrapper:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .instruction-toggle {
+      width: 100%;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border: none;
+      color: #ffffff;
+      font-size: 0.9em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .instruction-toggle:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .instruction-toggle.active {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+
+    .chevron-icon {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .instruction-toggle.active .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    .instruction-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .instruction-content.show {
+      grid-template-rows: 1fr;
+    }
+
+    .instruction-inner {
+      overflow: hidden;
+    }
+
+    .instruction-box {
+      padding: 20px 18px;
+    }
+
+    .instruction-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .instruction-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #d1d5db;
+      font-size: 0.9em;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .fps-value {
+      color: #10b981;
+      font-weight: 600;
+      min-width: 90px;
+    }
+
+    .arrow {
+      color: #6b7280;
+      font-size: 1em;
+    }
+
+    .mode-label {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .instruction-note {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      color: #9ca3af;
+      font-size: 0.85em;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .instruction-note strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .instruction-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .instruction-button {
+      padding: 12px 16px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1.5px solid rgba(16, 185, 129, 0.4);
+      border-radius: 8px;
+      color: #10b981;
+      font-size: 0.88em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .instruction-button:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .instruction-button:active {
+      transform: translateY(0);
+    }
+
+    .instruction-button svg {
+      flex-shrink: 0;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease-out 0.3s backwards;
+    }
+
+    .file-input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .file-input-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e5e7eb;
+      text-align: center;
+      border-radius: 16px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .file-input-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .file-input-button:hover::before {
+      left: 100%;
+    }
+
+    .file-input-button:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(16, 185, 129, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .file-input-button svg {
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .file-info {
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 12px;
+      display: none;
+      font-size: 0.9em;
+      color: #d1d5db;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .file-info.show { 
+      display: block;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .file-info strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .scale-section { 
+      margin: 32px 0;
+      padding: 24px;
+      background: rgba(30, 41, 59, 0.4);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .scale-options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .scale-option { 
+      position: relative;
+      width: 100%;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .scale-option:nth-child(1) {
+      animation-delay: 0.5s;
+      animation-fill-mode: backwards;
+    }
+
+    .scale-option:nth-child(2) {
+      animation-delay: 0.6s;
+      animation-fill-mode: backwards;
+    }
+
+    .scale-option:nth-child(3) {
+      animation-delay: 0.7s;
+      animation-fill-mode: backwards;
+    }
+
+    .scale-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .scale-option label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .scale-option label::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .scale-option label:hover::before {
+      left: 100%;
+    }
+
+    .scale-option label::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .scale-option label:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateX(4px);
+    }
+
+    .scale-option input[type="radio"]:checked + label {
+      background: rgba(16, 185, 129, 0.15);
+      color: #ffffff;
+      border-color: #10b981;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .scale-option input[type="radio"]:checked + label::after {
+      background: #10b981;
+      border-color: #10b981;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .process-button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.8s backwards;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .process-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .process-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .process-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-button:disabled {
+      background: rgba(75, 85, 99, 0.5);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .process-button:disabled::before {
+      display: none;
+    }
+
+    .process-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+    }
+
+    .process-button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .process-button.processing {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 0.9em;
+      text-align: center;
+      color: #d1d5db;
+      font-weight: 500;
+      min-height: 20px;
+    }
+
+    #status:not(:empty) {
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 1.75em;
+      }
+
+      .scale-option label {
+        padding: 16px 20px;
+        font-size: 0.95em;
+      }
+
+      .instruction-box {
+        padding: 20px;
+      }
+
+      .instruction-item {
+        flex-wrap: wrap;
+      }
+
+      .fps-value {
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Senzeyn X Tiktok</h1>
+    <p class="subtitle">High FPS Method For TikTok</p>
+
+    <div class="instruction-toggle-wrapper">
+      <button class="instruction-toggle" id="instructionToggle">
+        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        <span>Information & Tutorial</span>
+      </button>
+      
+      <div class="instruction-content" id="instructionContent">
+        <div class="instruction-inner">
+          <div class="instruction-box">
+            <div class="instruction-list">
+              <div class="instruction-item">
+                <span class="fps-value">60 FPS Video</span>
+                <span class="arrow">→</span>
+                <span class="mode-label">SMOOTH</span>
+              </div>
+              <div class="instruction-item">
+                <span class="fps-value">120 FPS Video</span>
+                <span class="arrow">→</span>
+                <span class="mode-label">SMOOTH LAG</span>
+              </div>
+              <div class="instruction-item">
+                <span class="fps-value">240 FPS Video</span>
+                <span class="arrow">→</span>
+                <span class="mode-label">SUPER SMOOTH LAG</span>
+              </div>
+            </div>
+            <p class="instruction-note">
+              Sebelum menggunakan opsi <strong>SMOOTH LAG</strong> dan <strong>SUPER SMOOTH LAG</strong>, 
+              Anda harus mengubah FPS video ke 120fps atau 240fps. Untuk mengubah FPS bisa menggunakan 
+              aplikasi yang mendukung interpolasi frame seperti <strong>Wink,</strong> <strong>Node video,</strong> 
+              atau <strong>FlowFrame (PC)</strong>. Namun saya sarankan menggunakan <strong>Wink</strong> untuk proses yang lebih cepat.
+            </p>
+            <div class="instruction-buttons">
+              <a href="wink.html" class="instruction-button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Tutorial Wink</span>
+              </a>
+              <a href="upload.html" class="instruction-button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span>Tutorial Upload</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-input-wrapper">
+      <input type="file" id="fileInput" class="file-input" accept="video/mp4,video/quicktime">
+      <div class="file-input-button" id="fileButton">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span>Select Video File</span>
+      </div>
+    </div>
+
+    <div class="file-info" id="fileInfo">
+      <strong>File:</strong> <span id="fileName"></span><br>
+      <strong>Size:</strong> <span id="fileSize"></span>
+    </div>
+    
+    <div class="scale-section">
+      <div class="scale-options">
+        <div class="scale-option">
+          <input type="radio" name="scaleFactor" id="scale0.5" value="0.5" checked>
+          <label for="scale0.5">
+            <span>SMOOTH</span>
+          </label>
+        </div>
+        <div class="scale-option">
+          <input type="radio" name="scaleFactor" id="scale025" value="0.25">
+          <label for="scale025">
+            <span>SMOOTH LAG</span>
+          </label>
+        </div>
+        <div class="scale-option">
+          <input type="radio" name="scaleFactor" id="scale0125" value="0.125">
+          <label for="scale0125">
+            <span>SUPER SMOOTH LAG</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button class="process-button" id="processBtn" disabled><span>Start Processing</span></button>
+    
+    <div id="status"></div>
+  </div>
+
+  <script src="controller.js"></script>
+  <script src="script.js"></script>
+  <script src="style.js"></script>
+  <script src="information.js"></script>
+</body>
+</html>

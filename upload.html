@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(180deg, #0a1628 0%, #0d1b2a 20%, #112233 40%, #0d1b2a 60%, #0a1628 80%, #050a12 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(20, 35, 50, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0d1b2a, #1a2332);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(16, 185, 129, 0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(16, 185, 129, 0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(16, 185, 129, 0.9), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(16, 185, 129, 0.7), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(16, 185, 129, 0.8), transparent),
+                radial-gradient(1px 1px at 200px 60px, rgba(16, 185, 129, 0.5), transparent),
+                radial-gradient(3px 3px at 250px 20px, rgba(16, 185, 129, 0.4), transparent),
+                radial-gradient(2px 2px at 300px 90px, rgba(16, 185, 129, 0.6), transparent);
+            background-repeat: repeat;
+            background-size: 350px 120px;
+            animation: starField 12s linear infinite;
+        }
+
+        @keyframes starField {
+            0% { transform: translateX(-350px) translateY(-120px); }
+            100% { transform: translateX(0px) translateY(0px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            color: #10b981;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            color: #a0b9c8;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #10b981;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #10b981;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-svg {
+            width: 28px;
+            height: 28px;
+            fill: #10b981;
+            flex-shrink: 0;
+        }
+
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            fill: #10b981;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .step-list {
+            background: rgba(25, 40, 55, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(30, 45, 60, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .step.has-button {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 0;
+            background: transparent;
+            border: none;
+            min-height: 60px;
+            box-shadow: none;
+        }
+
+        .step.has-button .step-number {
+            display: none;
+        }
+
+        .step.has-button .step-content {
+            width: 100%;
+            display: flex;
+            justify-content: stretch;
+        }
+
+        .step:hover {
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 0.9em;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content p {
+            color: #c8dae0;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .fps-options {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(20, 35, 50, 0.9);
+            border-radius: 10px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .fps-options ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .fps-options li {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: rgba(30, 50, 70, 0.9);
+            border-radius: 8px;
+            font-weight: 500;
+            color: #ffffff;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .highlight {
+            background: rgba(25, 40, 55, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .highlight h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight p {
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .wa-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .wa-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .wa-channel-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .wa-channel-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+        }
+
+        .warning {
+            background: rgba(25, 40, 55, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .warning h3 {
+            color: #ef4444;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning .icon-svg {
+            fill: #ef4444;
+        }
+
+        .warning p {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .link {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 5px;
+            background: rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            background: rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .tutorial-button {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+            text-align: center;
+            border: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .tutorial-button:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(15, 25, 35, 0.95);
+            color: #7a9199;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .wa-button,
+            .wa-channel-button {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <p><strong>Tutorial Upload TikTok</strong></p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">
+                    <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                    </svg>
+                    Cara Upload ke TikTok
+                </h2>
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p>Gunakan Browser <strong>Microsoft Edge atau Chrome</strong></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p>Cari "<strong>tiktok.com</strong>"</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p>Aktifkan <strong>situs desktop/mode desktop</strong></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p><strong>Login</strong> ke akun TikTok Anda</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <p>Klik tanda "<strong>+</strong>" di sebelah kiri untuk upload</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <p>Pilih video yang tadi sudah di convert</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <p>Tambahkan <strong>caption</strong> dan <strong>hashtag</strong></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <p>Ubah pengaturan menjadi "<strong>Hanya Anda</strong>"</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">9</div>
+                        <div class="step-content">
+                            <p><strong>Upload</strong> video</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">10</div>
+                        <div class="step-content">
+                            <p>Setelah berhasil upload, tunggu 1 menit lalu ubah pengaturan menjadi "<strong>Semua Orang</strong>"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>
+                    <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    TAMBAHAN
+                </h3>
+                <p><strong>GUNAKAN VPN SERVER JEPANG UNTUK MENDAPATKAN KUALITAS YANG LEBIH BAIK (1080P)</strong></p>
+            </div>
+
+            <div class="warning">
+                <h3>
+                    <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                    PERINGATAN PENTING
+                </h3>
+                <p><strong>JANGAN TAMBAHKAN EFEK, FILTER, SOUND, DLL. CUKUP EDIT CAPTION DAN HASHTAG NYA SAJA!!</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, observerOptions);
+
+            steps.forEach(step => {
+                observer.observe(step);
+            });
+
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(5px)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
